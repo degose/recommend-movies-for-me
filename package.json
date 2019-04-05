@@ -1,0 +1,20 @@
+{
+  "name": "recommend-movies-for-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.18.0",
+    "node": "^11.12.0",
+    "rxjs": "^6.4.0",
+    "typescript": "^3.4.1"
+  }
+}
