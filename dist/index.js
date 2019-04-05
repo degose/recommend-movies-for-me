@@ -12,3 +12,5 @@ const recommend_movies_1 = require("./src/recommend-movies");
 (new recommend_movies_1.RecommendMovies).exampleGetContents().subscribe((contents) => {
     console.log('contents', contents);
 });
+function calculateDistance(x, y) {
+}

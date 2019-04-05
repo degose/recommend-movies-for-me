@@ -16,7 +16,7 @@ class RecommendMovies {
         this.suggestionPlatformEndPoints = [
             SuggestionPlatform.NaverMovie,
             SuggestionPlatform.DaumMovie,
-            SuggestionPlatform.Watch
+            SuggestionPlatform.Watch,
         ];
     }
     exampleGetContents() {

@@ -4,13 +4,13 @@ import axios, {AxiosResponse} from 'axios';
 enum SuggestionPlatform {
   NaverMovie = 'https://movie.naver.com/',
   DaumMovie = 'https://movie.daum.net/',
-  Watch = 'https://play.watcha.net/'
+  Watch = 'https://play.watcha.net/',
 }
 export class RecommendMovies {
   private suggestionPlatformEndPoints: string[] = [
     SuggestionPlatform.NaverMovie,
     SuggestionPlatform.DaumMovie,
-    SuggestionPlatform.Watch
+    SuggestionPlatform.Watch,
 
   ];
 

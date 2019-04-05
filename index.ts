@@ -12,3 +12,4 @@ import {RecommendMovies} from "./src/recommend-movies";
 (new RecommendMovies).exampleGetContents().subscribe((contents) => {
   console.log('contents', contents);
 });
+
