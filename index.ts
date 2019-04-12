@@ -7,9 +7,22 @@
   - https://play.watcha.net/
  */
 
-import {RecommendMovies} from "./src/recommend-movies";
+import {Movie, RecommendMovies, User} from "./src/recommend-movies";
+import chalk from 'chalk';
 
-(new RecommendMovies).exampleGetContents().subscribe((contents) => {
-  console.log('contents', contents);
+const user: User = {
+  favMovieType: 'horror',
+  level: 6,
+  favMovieDateYears: Array.from({
+    length: (2019 - 2000)
+  }, (v, k) => k + 2000),
+  favMovieCountry: 'japan'
+};
+
+(new RecommendMovies).get(user).subscribe((movie: Movie) => {
+  console.log(chalk.red.bold(`${movie.name}`));
+  console.log(chalk.bold(`평정: ${movie.rating}`));
+  console.log(chalk.bold(`제작일: ${movie.released.toLocaleString().slice(0,10).replace(/-/g,"").split('/').pop()}`));
+  console.log('\n');
 });
 

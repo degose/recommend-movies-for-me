@@ -9,8 +9,6 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const recommend_movies_1 = require("./src/recommend-movies");
-(new recommend_movies_1.RecommendMovies).exampleGetContents().subscribe((contents) => {
+(new recommend_movies_1.RecommendMovies).get().subscribe((contents) => {
     console.log('contents', contents);
 });
-function calculateDistance(x, y) {
-}
