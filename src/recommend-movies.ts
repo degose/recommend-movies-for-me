@@ -33,7 +33,6 @@ export class RecommendMovies {
   private suggestionPlatformEndPoints: string[] = [
     SuggestionPlatform.NaverMovie,
     SuggestionPlatform.DaumMovie,
-    SuggestionPlatform.Watch,
   ];
 
   public getContentsFromNaverMovie(movieYear: number, favMovieCountry: string, favMovieType: string): Observable<Movie[]> {
