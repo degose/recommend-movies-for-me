@@ -141,7 +141,7 @@ export class RecommendMovies {
 
   }
 
-  public get(user: UserInterface, from: SuggestionPlatformEndPoint = SuggestionPlatformEndPoint.DaumMovie): Observable<any> {
+  public get(user: UserInterface, from: SuggestionPlatformEndPoint = SuggestionPlatformEndPoint.DaumMovie): Observable<MovieInterface> {
     return forkJoin(user.favMovieDateYears.map((year) => {
       return [from === SuggestionPlatformEndPoint.DaumMovie ? this.getContentsFromDaumMovie(year, user.favMovieCountry, user.favMovieType) : this.getContentsFromNaverMovie(year, user.favMovieCountry, user.favMovieType)];
     })).pipe(
