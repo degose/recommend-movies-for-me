@@ -1,9 +1,9 @@
-import {forkJoin, from, Observable, of} from "rxjs";
+import {combineLatest, forkJoin, from, merge, Observable, of} from "rxjs";
 import axios, {AxiosPromise, AxiosResponse} from 'axios';
 import {
   bufferTime,
-  catchError,
-  concatAll, concatMap, debounceTime, delay, filter, first, map, mergeAll, mergeMap, pluck, switchAll,
+  catchError, combineAll, concat,
+  concatAll, concatMap, debounceTime, delay, filter, first, map, mergeAll, mergeMap, pluck, switchAll, switchMap,
   tap, zip
 } from "rxjs/internal/operators";
 import cheerio from 'cheerio';
@@ -115,10 +115,9 @@ export class RecommendMovies {
       filter((response: AxiosResponse) => response.data.RESULT.SMARTANSWER.root.result && response.data.RESULT.SMARTANSWER.root.result.items && response.data.RESULT.SMARTANSWER.root.result.items.length > 0),
       map((response: AxiosResponse) => response.data.RESULT.SMARTANSWER.root.result.items.map((item: DaumMovieResponseInterface) => {
         return {
-          name: item.KEY_TITLE_MOBILE['#text' as any] as any,
-          released: new Date(movieYear),
-          detailId: 33,
-          rating: 9,
+          name: String(item.KEY_TITLE_MOBILE['#text' as any]),
+          released: new Date(String(item.KEY_RELEASE_DATE['#text' as any]).replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3')),
+          rating: Number(item.KEY_INSPECT_POINT_AVG['#text' as any]),
           from: SuggestionPlatformEndPoint.DaumMovie
         } as MovieInterface
       })),
@@ -142,15 +141,12 @@ export class RecommendMovies {
 
   }
 
-  public get(user: UserInterface): Observable<MovieInterface> {
+  public get(user: UserInterface, from: SuggestionPlatformEndPoint = SuggestionPlatformEndPoint.DaumMovie): Observable<any> {
     return forkJoin(user.favMovieDateYears.map((year) => {
-      return [
-        this.getContentsFromNaverMovie(year, user.favMovieCountry, user.favMovieType),
-        this.getContentsFromDaumMovie(year, user.favMovieCountry, user.favMovieType)
-      ]
+      return [from === SuggestionPlatformEndPoint.DaumMovie ? this.getContentsFromDaumMovie(year, user.favMovieCountry, user.favMovieType) : this.getContentsFromNaverMovie(year, user.favMovieCountry, user.favMovieType)];
     })).pipe(
-      mergeAll(),
       concatAll(),
+      mergeAll(),
       concatAll(),
       filter((movie: MovieInterface) => movie.rating > user.level)
     )
